@@ -3,15 +3,18 @@ function pinGenerate() {
     const generateValue2 = generateValue.toFixed(0);
     display();
     clearValue();
-    codeMatchVerify()
+    codeMatchVerify();
+    initialTryValue();
     document.getElementById('generateForm').value = generateValue2;
 }
-function submitFunction(pin) {
+function submitFunction() {
     const codeInput = document.getElementById('codeInput').value;
     const prev = document.getElementById('generateForm').value;
-    if (codeInput == prev && codeInput != '' && prev != '') {
+    if (codeInput == prev && codeInput != '' && prev != '' && codeInput.length==4) {
         display();
         document.getElementById('codeMatch').style.display = "block";
+        document.getElementById('codeNotMatch').style.display = "none";
+        initialTryValue();
     }
     else {
         let tryValue = document.getElementById('try').innerText;
@@ -36,10 +39,14 @@ function numberClick(y) {
     if (y == '<') {
         document.getElementById('codeInput').value = Math.floor(inputValue / 10);
     }
-    else {
+    else if(inputValue.length>3){
+        alert("Don't try to write more than 4 digit")
+    }
+    else{
         let x = inputValue + y;
         document.getElementById('codeInput').value = x;
     }
+    
 }
 function clearValue() {
     document.getElementById('codeInput').value = null;
@@ -47,7 +54,10 @@ function clearValue() {
 function display() {
     document.querySelector(".action-left").style.display = "none"
 }
-function codeMatchVerify(){
+function codeMatchVerify() {
     document.getElementById('codeMatch').style.display = "none";
     document.getElementById('codeNotMatch').style.display = "none";
+}
+function initialTryValue() {
+    document.getElementById('try').innerText = 3;
 }
